@@ -34,7 +34,7 @@ export default function Home() {
   const [rewardData, setRewardData] = useState(null);
   
   // Audio và Sound settings
-  const [isMuted, setIsMuted] = useState(true); // Mặc định tắt tiếng, chờ người dùng bấm bật (quy chuẩn trình duyệt chặn auto-play)
+  const [isMuted, setIsMuted] = useState(false); // Mặc định BẬT tiếng (Sound ON mặc định)
   
   // Ref cho âm thanh
   const bgMusicRef = useRef(null);

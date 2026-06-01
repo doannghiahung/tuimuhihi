@@ -2,13 +2,14 @@
 
 import { useState, useEffect, useRef } from "react";
 
-// Meme background images to float around (Bác Gấu troll Free Fire)
+// Meme background images to float around (Bác Gấu & Bùi Xuân Huấn)
 const TROLL_MEMES = [
   "/bacgau_1.png",
   "/bacgau_2.png",
   "/bacgau_3.jpg",
   "/bacgau_4.png",
-  "/bacgau_5.png"
+  "/bacgau_5.png",
+  "/bag_opened.png" // Bùi Xuân Huấn mới thêm!
 ];
 
 export default function Home() {
@@ -372,17 +373,17 @@ export default function Home() {
 
       {/* BACKGROUND FLOATING MEMES TROLLING */}
       <div className="bg-memes-container">
-        {TROLL_MEMES.map((meme, idx) => (
+        {[...TROLL_MEMES, ...TROLL_MEMES].map((meme, idx) => (
           <img
             key={idx}
             src={meme}
             alt="troll meme bg"
             className="floating-meme"
             style={{
-              width: `${120 + idx * 45}px`,
-              left: `${10 + idx * 25}%`,
-              animationDelay: `${idx * 4}s`,
-              animationDuration: `${15 + idx * 5}s`
+              width: `${110 + (idx % 6) * 35}px`,
+              left: `${5 + (idx * 8) % 90}%`,
+              animationDelay: `${idx * 2}s`,
+              animationDuration: `${10 + (idx % 4) * 4}s`
             }}
           />
         ))}

@@ -363,7 +363,7 @@ export default function Home() {
         <span className="funny-badge">🎁 Sự Kiện Quốc Tế Thiếu Nhi 1/6 cực bựa 🎉</span>
         <h1 className="bunga-title">MỞ TÚI MÙ HỐT GARENA 500K</h1>
         <p className="header-subtitle">
-          Cơ hội vàng duy nhất trong năm! Nhận ngay thẻ cào Garena mệnh giá từ <strong style={{color: "var(--color-yellow)"}}>5.000đ đến 500.000đ</strong> hoàn toàn miễn phí. Hùng & Đức Anh tài trợ, uy tín 100% không bịp bợm!
+          Cơ hội vàng duy nhất trong năm! Nhận ngay thẻ cào Garena mệnh giá từ <strong style={{color: "var(--color-yellow)"}}>5.000đ đến 500.000đ</strong> hoàn toàn miễn phí. Đức Anh tài trợ, uy tín 100% không bịp bợm!
         </p>
       </header>
 
@@ -375,15 +375,11 @@ export default function Home() {
         </div>
         <div className="stat-card">
           <span className="stat-label">Đã Tham Gia Khui 🎁</span>
-          <span className="stat-value highlight">{loading ? "..." : dbState.participantCount} / 8 túi</span>
+          <span className="stat-value highlight">{loading ? "..." : dbState.participantCount} / 16 túi</span>
         </div>
         <div className="stat-card">
           <span className="stat-label">Nhà Tài Trợ 💎</span>
           <span className="stat-value pink" style={{color: "var(--color-cyan)"}}>Lê Đức Anh</span>
-        </div>
-        <div className="stat-card">
-          <span className="stat-label">Lập Trình Viên ⚡</span>
-          <span className="stat-value pink">Coder Hùng</span>
         </div>
       </section>
 
@@ -470,7 +466,7 @@ export default function Home() {
             <div className="rules-list">
               <div className="rule-item">
                 <span className="rule-icon">🤪</span>
-                <p>Nạp thẻ nhanh chóng tại <a href="https://napthe.vn" target="_blank" rel="noopener noreferrer" style={{color: "var(--color-yellow)", textDecoration: "underline", fontWeight: "bold"}}>napthe.vn</a> để kiểm định độ uy tín của Hùng và Đức Anh!</p>
+                <p>Nạp thẻ nhanh chóng tại <a href="https://napthe.vn" target="_blank" rel="noopener noreferrer" style={{color: "var(--color-yellow)", textDecoration: "underline", fontWeight: "bold"}}>napthe.vn</a> để kiểm định độ uy tín của Đức Anh!</p>
               </div>
             </div>
           </div>
@@ -478,7 +474,7 @@ export default function Home() {
           <div className="sponsor-banner">
             <p className="sponsor-title">💰 Quỹ Tài Trợ Đặc Biệt 1/6 💰</p>
             <p className="sponsor-name">Đại gia LÊ ĐỨC ANH</p>
-            <p style={{fontSize: "0.8rem", color: "#c9c3e6", marginTop: "5px"}}>Cung cấp 10 chiếc thẻ 5k đầy giá trị & lòng thành!</p>
+            <p style={{fontSize: "0.8rem", color: "#c9c3e6", marginTop: "5px"}}>Cung cấp 20 chiếc thẻ 5k đầy giá trị & lòng thành!</p>
           </div>
         </div>
       </section>
@@ -550,7 +546,7 @@ export default function Home() {
             </div>
 
             <div className="troll-explanation">
-              🎉 <strong>Cú lừa Thế Kỷ 1/6:</strong> Giao diện báo bạn trúng <strong>{rewardData.announcedValue}</strong>, nhưng Đức Anh chỉ tài trợ thẻ <strong>5.000đ</strong> thôi nhé! Đọc kỹ mã thẻ bên dưới rồi vào nạp nhanh kẻo hết hạn nha bạn hiền! Hùng & Đức Anh uy tín vcl!
+              🎉 <strong>Cú lừa Thế Kỷ 1/6:</strong> Giao diện báo bạn trúng <strong>{rewardData.announcedValue}</strong>, nhưng Đức Anh chỉ tài trợ thẻ <strong>5.000đ</strong> thôi nhé! Đọc kỹ mã thẻ bên dưới rồi vào nạp nhanh kẻo hết hạn nha bạn hiền! Đức Anh uy tín vcl!
             </div>
 
             <div className="card-details-box">
@@ -612,9 +608,12 @@ export default function Home() {
       <footer className="footer">
         <p>© 2026. Trang web tạo ra hoàn toàn vì mục đích troll hài hước nhân ngày 1/6.</p>
         <p>
-          Cảm ơn nhà tài trợ <strong>Lê Đức Anh</strong> & lập trình viên <strong>Hùng</strong> đã mang tiếng cười cho anh em.
+          Cảm ơn nhà tài trợ <strong>Lê Đức Anh</strong> đã mang tiếng cười cho anh em.
         </p>
-        <p>
+        <p style={{ marginTop: "12px", fontSize: "0.85rem", color: "#8d85a6", letterSpacing: "0.5px" }}>
+          cốt đơ : Hồn Lùng
+        </p>
+        <p style={{ marginTop: "15px" }}>
           Nếu bạn đang phát triển hoặc muốn bắt đầu lại sự kiện, hãy bấm vào{" "}
           <span className="footer-troll-link" onClick={handleResetApp}>
             [Bấm vào đây để RESET trang web]

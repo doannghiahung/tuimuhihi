@@ -60,7 +60,7 @@ export async function POST(request) {
         success: false, 
         isDuplicateUser: true,
         openedBagId: existingUser.bagId,
-        error: `Tham lam thế bạn ơi! IP/Thiết bị của bạn đã mở túi số [Túi ${existingUser.bagId}] với tên [${existingUser.name}] rồi! Hùng & Đức Anh không cho mở cái thứ hai đâu nha.` 
+        error: `Tham lam thế bạn ơi! IP/Thiết bị của bạn đã mở túi số [Túi ${existingUser.bagId}] với tên [${existingUser.name}] rồi! Đức Anh không cho mở cái thứ hai đâu nha.` 
       }, { status: 400 });
     }
 

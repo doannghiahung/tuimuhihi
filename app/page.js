@@ -33,6 +33,9 @@ export default function Home() {
   // State hiển thị túi vừa mở thành công
   const [rewardData, setRewardData] = useState(null);
   
+  // Phát hiện và chặn Tab ẩn danh
+  const [isIncognito, setIsIncognito] = useState(false);
+  
   // Audio và Sound settings (Luôn bật, tự động phát khi click bất kỳ đâu)
   const isMuted = false;
   
@@ -55,6 +58,37 @@ export default function Home() {
       localStorage.setItem("garena_user_uuid", clientUuid);
     }
     setUuid(clientUuid);
+  }, []);
+
+  // 1.1. Phát hiện trình duyệt ẩn danh (Incognito Mode) bằng bộ lưu trữ Storage Quota
+  useEffect(() => {
+    const checkIncognito = async () => {
+      try {
+        // Kiểm tra dung lượng lưu trữ giới hạn (Chrome, Safari, Firefox, Edge ẩn danh bị giới hạn cực thấp < 120MB)
+        if (navigator.storage && navigator.storage.estimate) {
+          const { quota } = await navigator.storage.estimate();
+          if (quota && quota < 120 * 1024 * 1024) {
+            setIsIncognito(true);
+            return;
+          }
+        }
+        
+        // Firefox ẩn danh kiểm tra bằng IndexedDB
+        if (navigator.userAgent.includes("Firefox")) {
+          const db = indexedDB.open("test");
+          db.onerror = () => {
+            setIsIncognito(true);
+          };
+          db.onsuccess = () => {
+            indexedDB.deleteDatabase("test");
+          };
+        }
+      } catch (err) {
+        console.log("Incognito check failed:", err);
+      }
+    };
+    
+    checkIncognito();
   }, []);
 
   // 2. Khởi tạo Audio Objects trên Client-side & Tự động phát nhạc khi click bất kỳ đâu
@@ -605,6 +639,36 @@ export default function Home() {
             <button className="btn-secondary" onClick={() => setRewardData(null)}>
               🤣 QUAY LẠI CƯỜI TIẾP
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* --- MODAL 3: CHẶN TAB ẨN DANH (Incognito Detection) --- */}
+      {isIncognito && (
+        <div className="modal-overlay" style={{ zIndex: 99999, backdropFilter: "blur(15px)" }}>
+          <div className="modal-content" style={{ border: "2px solid var(--color-red)", boxShadow: "0 0 35px rgba(255, 0, 0, 0.4)", textAlign: "center" }}>
+            <div className="popup-meme-wrapper" style={{ width: "120px", height: "120px", margin: "0 auto 15px auto" }}>
+              <img
+                src="/bacgau_3.jpg"
+                alt="Bác Gấu phát hiện"
+                width={120}
+                height={120}
+                className="bag-image"
+                style={{ objectFit: "cover", borderRadius: "50%" }}
+              />
+            </div>
+            <h3 className="modal-title" style={{ color: "var(--color-red)", fontSize: "1.6rem", textShadow: "0 0 10px rgba(255,0,0,0.5)" }}>
+              🚨 PHÁT HIỆN TAB ẨN DANH!
+            </h3>
+            <p className="congrats-text" style={{ fontSize: "1.1rem", marginTop: "10px", lineHeight: "1.6" }}>
+              Ớ thế à? Định dùng <strong>Tab ẩn danh</strong> để cướp thêm túi mù của Đức Anh đúng không con trai? Không có cửa đâu nha! 😉
+            </p>
+            <div className="troll-explanation" style={{ border: "1px dashed var(--color-red)", background: "rgba(255, 0, 0, 0.15)", color: "var(--color-yellow)", padding: "12px", borderRadius: "8px", margin: "15px 0" }}>
+              ⚠️ <strong>Yêu cầu uy tín:</strong> Vui lòng tắt Tab ẩn danh và dùng trình duyệt thường để tiếp tục chơi nhé fen! Lê Đức Anh tài trợ uy tín, bạn cũng nên uy tín đi nào!
+            </div>
+            <p style={{ fontSize: "0.85rem", color: "#8d85a6" }}>
+              Lập trình viên đã chặn đứng cú lách luật này thành công! 🧑‍💻
+            </p>
           </div>
         </div>
       )}

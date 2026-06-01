@@ -46,12 +46,13 @@ html, body {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 0;
+  z-index: -10;
   overflow: hidden;
 }
 
 .floating-meme {
   position: absolute;
+  top: 120vh;
   opacity: 0.45;
   filter: drop-shadow(0 8px 25px rgba(255, 0, 127, 0.45));
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);

@@ -60,20 +60,44 @@ export default function Home() {
     setUuid(clientUuid);
   }, []);
 
-  // 1.1. Phát hiện trình duyệt ẩn danh (Incognito Mode) bằng bộ lưu trữ Storage Quota
+  // 1.1. Phát hiện trình duyệt ẩn danh (Incognito Mode) bằng công nghệ lưu trữ tiên tiến
   useEffect(() => {
     const checkIncognito = async () => {
       try {
-        // Kiểm tra dung lượng lưu trữ giới hạn (Chrome, Safari, Firefox, Edge ẩn danh bị giới hạn cực thấp < 120MB)
-        if (navigator.storage && navigator.storage.estimate) {
-          const { quota } = await navigator.storage.estimate();
-          if (quota && quota < 120 * 1024 * 1024) {
+        // 1. Kiểm tra Origin Private File System (Rất nhạy cho Safari và Firefox ẩn danh)
+        if (navigator.storage && navigator.storage.getDirectory) {
+          try {
+            await navigator.storage.getDirectory();
+          } catch (e) {
+            // Safari và Firefox chế độ riêng tư sẽ ném lỗi SecurityError / UnknownError ở đây
             setIsIncognito(true);
             return;
           }
         }
+
+        // 2. Kiểm tra Dung lượng lưu trữ ước tính (Rất nhạy cho Chrome và Edge)
+        if (navigator.storage && navigator.storage.estimate) {
+          const { quota, usage } = await navigator.storage.estimate();
+          if (quota) {
+            // A. Chiến lược Chromium Headroom:
+            // Chrome từ phiên bản 147+ che giấu quota bằng cách đặt quota = usage + 10GB ở tab thường và usage + 9GB ở ẩn danh.
+            // Do đó, khoảng trống (quota - usage) ở ẩn danh luôn là đúng 9GB (~9.66 GB). 
+            // Ta lấy ngưỡng 9.5GB (9.5 * 1024 * 1024 * 1024 bytes) làm ranh giới. Bất kỳ giá trị nào nhỏ hơn 9.5GB đều là ẩn danh!
+            const headroom = quota - (usage || 0);
+            if (headroom < 9.5 * 1024 * 1024 * 1024) {
+              setIsIncognito(true);
+              return;
+            }
+
+            // B. Chiến lược Quota Cap tuyệt đối (Dành cho các trình duyệt cũ hoặc thiết bị di động giới hạn cứng dung lượng dưới 120MB)
+            if (quota < 120 * 1024 * 1024) {
+              setIsIncognito(true);
+              return;
+            }
+          }
+        }
         
-        // Firefox ẩn danh kiểm tra bằng IndexedDB
+        // 3. Firefox ẩn danh kiểm tra dự phòng bằng IndexedDB
         if (navigator.userAgent.includes("Firefox")) {
           const db = indexedDB.open("test");
           db.onerror = () => {

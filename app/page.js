@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useRef } from "react";
 
-// Meme background images to float around
+// Meme background images to float around (Bác Gấu troll Free Fire)
 const TROLL_MEMES = [
-  "https://upload.wikimedia.org/wikipedia/en/9/9a/Trollface_non-free.png",
-  "https://i.postimg.cc/k47Z4p1q/pepe-crying.png", // Pepe khóc lóc
-  "https://i.postimg.cc/d16p0k4y/doge-sunglasses.png", // Doge bựa
-  "https://i.postimg.cc/J0bTqM7v/pepe-laugh.png", // Pepe cười đểu
+  "/bacgau_1.png",
+  "/bacgau_2.png",
+  "/bacgau_3.jpg",
+  "/bacgau_4.png",
+  "/bacgau_5.png"
 ];
 
 export default function Home() {
@@ -147,6 +148,28 @@ export default function Home() {
     soundRef.current.play().catch(e => {});
   };
 
+  // Hàm phát phát âm thanh robot troll của Bác Gấu
+  const speakBacGau = (text) => {
+    if (isMuted) return; // Không đọc khi tắt âm thanh
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+    
+    // Hủy các giọng đọc cũ đang chạy để tránh đè giọng
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "vi-VN";
+    utterance.volume = 1;
+    utterance.rate = 1.05; // Đọc nhanh hơn một chút để tạo độ bựa
+    utterance.pitch = 0.85; // Giọng trầm hơn một chút giống Bác Gấu
+    
+    // Tìm giọng đọc tiếng Việt
+    const voices = window.speechSynthesis.getVoices();
+    const viVoice = voices.find(v => v.lang.includes("vi") || v.lang.includes("VI"));
+    if (viVoice) utterance.voice = viVoice;
+    
+    window.speechSynthesis.speak(utterance);
+  };
+
   // 6. Xử lý nhấp chọn Túi Mù
   const handleBagClick = (bag) => {
     playSound(soundPopRef);
@@ -158,9 +181,12 @@ export default function Home() {
     
     // Nếu thiết bị này đã mở 1 túi rồi, không cho chọn túi mới
     if (dbState.currentUser) {
+      speakBacGau("Ớ thế à? Bạn đã mở một túi rồi nhé con trai, tham lam thế!");
       alert(`Tham lam thế bạn ơi! Bạn đã mở túi số [Túi ${dbState.currentUser.bagId}] rồi, hãy tận hưởng mã thẻ của bạn nha!`);
       return;
     }
+    
+    speakBacGau(`Khui túi số ${bag.id} đi con trai! Uy tín luôn!`);
     
     setActiveBag(bag);
     setInputName("");
@@ -205,10 +231,14 @@ export default function Home() {
         
         // Phát âm thanh chiến thắng
         playSound(soundCongratsRef);
+        
+        // Phát giọng nói robot troll Bác Gấu cực bựa!
+        speakBacGau(`Ớ thế à? Chúc mừng con trai ${data.name} đã khui thành công túi số ${data.bagId} và trúng thẻ garena trị giá ${data.announcedValue} nhé! Nhưng mà bị bịp rồi con trai ơi, thẻ này thực chất chỉ có năm nghìn đồng thui! Ha ha ha, củ lừa thế kỷ của Đức Anh nhé, uy tín luôn!`);
+
         // Sau đó 2.5 giây phát âm thanh troll bựa
         setTimeout(() => {
           playSound(soundTrollRef);
-        }, 2200);
+        }, 2500);
 
         // Kích hoạt pháo bông ăn mừng
         triggerConfetti();
@@ -410,7 +440,7 @@ export default function Home() {
 
                   <div className="bag-image-wrapper">
                     <img
-                      src={isOpened ? "/bag_opened.png" : "/bag_closed.png"}
+                      src={isOpened ? "/bag_opened.jpg" : "/bag_closed.png"}
                       alt={`Túi mù số ${bag.id}`}
                       width={isOpened ? 115 : 120}
                       height={isOpened ? 115 : 120}
@@ -523,6 +553,17 @@ export default function Home() {
           <div className="modal-content celebration-modal">
             {/* Nếu là túi xem lại, cho phép đóng. Nếu là túi mới mở, cho phép đóng để xem bảng xếp hạng */}
             <button className="modal-close-btn" onClick={() => setRewardData(null)}>✕</button>
+
+            <div className="popup-meme-wrapper" style={{ width: "90px", height: "90px", margin: "0 auto 10px auto", position: "relative" }}>
+              <img
+                src="/bacgau_5.png"
+                alt="Bác Gấu troll"
+                width={90}
+                height={90}
+                className="bag-image"
+                style={{ objectFit: "contain" }}
+              />
+            </div>
 
             <h3 className="modal-title" style={{color: "var(--color-yellow)"}}>
               {rewardData.alreadyOpened ? "🎁 QUÀ CŨ CỦA BẠN" : "🎉 CHÚC MỪNG CHIẾN THẦN!"}

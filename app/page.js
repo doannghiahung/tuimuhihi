@@ -64,9 +64,9 @@ export default function Home() {
 
   // 2. Khởi tạo Audio Objects trên Client-side
   useEffect(() => {
-    bgMusicRef.current = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+    bgMusicRef.current = new Audio("/bg_music.mp3");
     bgMusicRef.current.loop = true;
-    bgMusicRef.current.volume = 0.25;
+    bgMusicRef.current.volume = 0.35;
 
     soundPopRef.current = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav");
     soundPopRef.current.volume = 0.5;
@@ -379,7 +379,7 @@ export default function Home() {
             alt="troll meme bg"
             className="floating-meme"
             style={{
-              width: `${60 + idx * 25}px`,
+              width: `${120 + idx * 45}px`,
               left: `${10 + idx * 25}%`,
               animationDelay: `${idx * 4}s`,
               animationDuration: `${15 + idx * 5}s`

@@ -52,7 +52,7 @@ html, body {
 
 .floating-meme {
   position: absolute;
-  opacity: 0.12;
+  opacity: 0.28;
   transition: opacity 0.3s;
   animation: float 20s infinite linear;
 }
@@ -205,6 +205,8 @@ html, body {
   text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 5px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   transition: all 0.3s;

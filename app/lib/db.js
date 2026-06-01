@@ -3,18 +3,18 @@ import path from 'path';
 
 const DB_FILE = path.join(process.cwd(), 'database.json');
 
-// Danh sách 10 mã thẻ Garena 5k mặc định (bạn có thể thay thế bằng thẻ thật)
+// Danh sách 10 mã thẻ Garena 5k thật của người dùng
 const DEFAULT_CARDS = [
-  { code: "10006382910482", serial: "GP4829103847" }, // Thẻ 1 (Túi 1)
-  { code: "10007492019482", serial: "GP9284710492" }, // Thẻ 2 (Túi 2)
-  { code: "10008472910483", serial: "GP8374920184" }, // Thẻ 3 (Túi 3 - thẻ 1)
-  { code: "10009284710485", serial: "GP2847104928" }, // Thẻ 4 (Túi 3 - thẻ 2)
-  { code: "10001048291847", serial: "GP1038471048" }, // Thẻ 5 (Túi 4)
-  { code: "10002938471029", serial: "GP9284710294" }, // Thẻ 6 (Túi 5)
-  { code: "10003847192847", serial: "GP3847102948" }, // Thẻ 7 (Túi 6 - thẻ 1)
-  { code: "10004829104827", serial: "GP4810294810" }, // Thẻ 8 (Túi 6 - thẻ 2)
-  { code: "10005820194820", serial: "GP5820194820" }, // Thẻ 9 (Túi 7)
-  { code: "10006830194810", serial: "GP6830194810" }, // Thẻ 10 (Túi 8)
+  { code: "3612988430016484", serial: "" }, // Thẻ 1 (Túi 1)
+  { code: "3704707448632871", serial: "" }, // Thẻ 2 (Túi 2)
+  { code: "3369529095325483", serial: "" }, // Thẻ 3 (Túi 3 - 1)
+  { code: "2957339673382895", serial: "" }, // Thẻ 4 (Túi 3 - 2)
+  { code: "6070395402630917", serial: "" }, // Thẻ 5 (Túi 4)
+  { code: "4696980465093598", serial: "" }, // Thẻ 6 (Túi 5)
+  { code: "381255427606690",  serial: "" }, // Thẻ 7 (Túi 6 - 1)
+  { code: "3249080688875815", serial: "" }, // Thẻ 8 (Túi 6 - 2)
+  { code: "3690288802777517", serial: "" }, // Thẻ 9 (Túi 7)
+  { code: "5151100021732971", serial: "" }  // Thẻ 10 (Túi 8)
 ];
 
 const INITIAL_DB = {

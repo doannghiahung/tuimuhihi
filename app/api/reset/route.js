@@ -4,16 +4,16 @@ import { saveDB } from '../../lib/db';
 export async function GET(request) {
   try {
     const DEFAULT_CARDS = [
-      { code: "10006382910482", serial: "GP4829103847" },
-      { code: "10007492019482", serial: "GP9284710492" },
-      { code: "10008472910483", serial: "GP8374920184" },
-      { code: "10009284710485", serial: "GP2847104928" },
-      { code: "10001048291847", serial: "GP1038471048" },
-      { code: "10002938471029", serial: "GP9284710294" },
-      { code: "10003847192847", serial: "GP3847102948" },
-      { code: "10004829104827", serial: "GP4810294810" },
-      { code: "10005820194820", serial: "GP5820194820" },
-      { code: "10006830194810", serial: "GP6830194810" },
+      { code: "3612988430016484", serial: "" },
+      { code: "3704707448632871", serial: "" },
+      { code: "3369529095325483", serial: "" },
+      { code: "2957339673382895", serial: "" },
+      { code: "6070395402630917", serial: "" },
+      { code: "4696980465093598", serial: "" },
+      { code: "381255427606690",  serial: "" },
+      { code: "3249080688875815", serial: "" },
+      { code: "3690288802777517", serial: "" },
+      { code: "5151100021732971", serial: "" },
     ];
 
     const INITIAL_DB = {

@@ -456,7 +456,6 @@ export default function Home() {
                   </div>
                   <div className="lucky-value-tag">
                     {player.announcedValue}
-                    <span className="real-value-sub">(Thực chất 5.000đ 🤣)</span>
                   </div>
                 </div>
               ))
@@ -469,18 +468,6 @@ export default function Home() {
           <div>
             <h3 className="panel-title">📜 THỂ LỆ TÚI MÙ 1/6</h3>
             <div className="rules-list">
-              <div className="rule-item">
-                <span className="rule-icon">🛡️</span>
-                <p>Mỗi IP & Thiết bị trình duyệt chỉ được mở <strong>DUY NHẤT 1 túi mù</strong> vĩnh viễn.</p>
-              </div>
-              <div className="rule-item">
-                <span className="rule-icon">📛</span>
-                <p>Tên người tham gia mở phải là <strong>DUY NHẤT</strong> và không được trùng lắp.</p>
-              </div>
-              <div className="rule-item">
-                <span className="rule-icon">🤑</span>
-                <p>Thẻ Garena trúng ngẫu nhiên từ 5k đến 500k. Nhưng xin cam đoan 100% là <strong>HÊN THÌ TRÚNG 5K</strong> (và xui thì cũng trúng 5k).</p>
-              </div>
               <div className="rule-item">
                 <span className="rule-icon">🤪</span>
                 <p>Nạp thẻ nhanh chóng tại <a href="https://napthe.vn" target="_blank" rel="noopener noreferrer" style={{color: "var(--color-yellow)", textDecoration: "underline", fontWeight: "bold"}}>napthe.vn</a> để kiểm định độ uy tín của Hùng và Đức Anh!</p>
@@ -540,15 +527,6 @@ export default function Home() {
           <div className="modal-content celebration-modal">
             {/* Nếu là túi xem lại, cho phép đóng. Nếu là túi mới mở, cho phép đóng để xem bảng xếp hạng */}
             <button className="modal-close-btn" onClick={() => setRewardData(null)}>✕</button>
-            
-            <div className="popup-meme-wrapper">
-              <img
-                src="/troll_popup.png"
-                alt="troll meme pointing"
-                fill
-                className="bag-image"
-              />
-            </div>
 
             <h3 className="modal-title" style={{color: "var(--color-yellow)"}}>
               {rewardData.alreadyOpened ? "🎁 QUÀ CŨ CỦA BẠN" : "🎉 CHÚC MỪNG CHIẾN THẦN!"}
@@ -595,18 +573,20 @@ export default function Home() {
                       </button>
                     </div>
                   </div>
-                  <div className="detail-row" style={{marginTop: "5px"}}>
-                    <span className="detail-label">Số Serial:</span>
-                    <div className="detail-value-wrapper">
-                      <span className="detail-value" style={{color: "#bbb"}}>{card.serial}</span>
-                      <button
-                        className={`copy-btn ${copiedStates[`serial_${index}`] ? "copied" : ""}`}
-                        onClick={() => handleCopy(card.serial, `serial_${index}`)}
-                      >
-                        {copiedStates[`serial_${index}`] ? "Đã chép" : "Sao chép"}
-                      </button>
+                  {card.serial && (
+                    <div className="detail-row" style={{marginTop: "5px"}}>
+                      <span className="detail-label">Số Serial:</span>
+                      <div className="detail-value-wrapper">
+                        <span className="detail-value" style={{color: "#bbb"}}>{card.serial}</span>
+                        <button
+                          className={`copy-btn ${copiedStates[`serial_${index}`] ? "copied" : ""}`}
+                          onClick={() => handleCopy(card.serial, `serial_${index}`)}
+                        >
+                          {copiedStates[`serial_${index}`] ? "Đã chép" : "Sao chép"}
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               ))}
             </div>

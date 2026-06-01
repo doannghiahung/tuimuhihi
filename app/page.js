@@ -33,8 +33,8 @@ export default function Home() {
   // State hiển thị túi vừa mở thành công
   const [rewardData, setRewardData] = useState(null);
   
-  // Audio và Sound settings
-  const [isMuted, setIsMuted] = useState(false); // Mặc định BẬT tiếng (Sound ON mặc định)
+  // Audio và Sound settings (Luôn bật, tự động phát khi click bất kỳ đâu)
+  const isMuted = false;
   
   // Ref cho âm thanh
   const bgMusicRef = useRef(null);
@@ -55,15 +55,9 @@ export default function Home() {
       localStorage.setItem("garena_user_uuid", clientUuid);
     }
     setUuid(clientUuid);
-    
-    // Đọc trạng thái âm thanh đã lưu
-    const savedMute = localStorage.getItem("garena_sound_muted");
-    if (savedMute !== null) {
-      setIsMuted(savedMute === "true");
-    }
   }, []);
 
-  // 2. Khởi tạo Audio Objects trên Client-side
+  // 2. Khởi tạo Audio Objects trên Client-side & Tự động phát nhạc khi click bất kỳ đâu
   useEffect(() => {
     bgMusicRef.current = new Audio("/bg_music.mp3");
     bgMusicRef.current.loop = true;
@@ -81,21 +75,28 @@ export default function Home() {
     soundTrollRef.current = new Audio("https://assets.mixkit.co/active_storage/sfx/1803/1803-84.wav");
     soundTrollRef.current.volume = 0.65;
 
+    // Hỗ trợ tự động phát nhạc khi click bất kỳ đâu trên trang
+    const startMusic = () => {
+      if (bgMusicRef.current) {
+        bgMusicRef.current.play().then(() => {
+          document.removeEventListener("click", startMusic);
+          document.removeEventListener("touchstart", startMusic);
+        }).catch(e => {
+          console.log("Auto-play blocked by browser. Click to enable sound!", e);
+        });
+      }
+    };
+    document.addEventListener("click", startMusic);
+    document.addEventListener("touchstart", startMusic);
+
     return () => {
       if (bgMusicRef.current) bgMusicRef.current.pause();
+      document.removeEventListener("click", startMusic);
+      document.removeEventListener("touchstart", startMusic);
     };
   }, []);
 
-  // 3. Xử lý Play/Pause Nhạc Nền theo trạng thái Muted
-  useEffect(() => {
-    if (!bgMusicRef.current) return;
-    if (isMuted) {
-      bgMusicRef.current.pause();
-    } else {
-      bgMusicRef.current.play().catch(e => console.log("Auto-play blocked by browser. Click to enable sound!"));
-    }
-    localStorage.setItem("garena_sound_muted", isMuted.toString());
-  }, [isMuted]);
+
 
   // 4. Hàm fetch trạng thái Database từ Server
   const fetchStatus = async (clientUuid) => {
@@ -358,18 +359,7 @@ export default function Home() {
     <div className="app-wrapper">
       <canvas ref={canvasRef} className="confetti-canvas"></canvas>
       
-      {/* Nút bật/tắt nhạc nền có thiết kế premium ở góc phải */}
-      <button className="sound-toggle-btn" onClick={() => setIsMuted(!isMuted)}>
-        {isMuted ? (
-          <>
-            <span>🔇 OFF Sound</span>
-          </>
-        ) : (
-          <>
-            <span>🔊 ON Sound</span>
-          </>
-        )}
-      </button>
+
 
       {/* BACKGROUND FLOATING MEMES TROLLING */}
       <div className="bg-memes-container">
@@ -406,7 +396,7 @@ export default function Home() {
         </div>
         <div className="stat-card">
           <span className="stat-label">Đã Tham Gia Khui 🎁</span>
-          <span className="stat-value highlight">{loading ? "..." : dbState.participantCount} / 16 túi</span>
+          <span className="stat-value highlight">{loading ? "..." : dbState.participantCount} / 12 túi</span>
         </div>
         <div className="stat-card">
           <span className="stat-label">Nhà Tài Trợ 💎</span>
@@ -505,7 +495,7 @@ export default function Home() {
           <div className="sponsor-banner">
             <p className="sponsor-title">💰 Quỹ Tài Trợ Đặc Biệt 1/6 💰</p>
             <p className="sponsor-name">Đại gia LÊ ĐỨC ANH</p>
-            <p style={{fontSize: "0.8rem", color: "#c9c3e6", marginTop: "5px"}}>Cung cấp 20 chiếc thẻ 5k đầy giá trị & lòng thành!</p>
+            <p style={{fontSize: "0.8rem", color: "#c9c3e6", marginTop: "5px"}}>Cung cấp 12 chiếc thẻ 5k đầy giá trị & lòng thành!</p>
           </div>
         </div>
       </section>

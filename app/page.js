@@ -654,12 +654,6 @@ export default function Home() {
         <p style={{ marginTop: "12px", fontSize: "0.85rem", color: "#8d85a6", letterSpacing: "0.5px" }}>
           cốt đơ : Hồn Lùng
         </p>
-        <p style={{ marginTop: "15px" }}>
-          Nếu bạn đang phát triển hoặc muốn bắt đầu lại sự kiện, hãy bấm vào{" "}
-          <span className="footer-troll-link" onClick={handleResetApp}>
-            [Bấm vào đây để RESET trang web]
-          </span>
-        </p>
       </footer>
     </div>
   );
